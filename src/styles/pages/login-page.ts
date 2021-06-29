@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { transparentize, lighten } from 'polished'
+import { transparentize } from 'polished'
 
 export const LoginPageContainer = styled.div`
   height: 100vh;
@@ -8,10 +8,7 @@ export const LoginPageContainer = styled.div`
   flex-direction: column;
 
   header {
-    background: radial-gradient(58.93% 69.94% at 50% 100%, 
-      ${ctx => lighten(0.2, ctx.theme.colors.primary)} 0%, 
-      ${ctx => ctx.theme.colors.primary} 100%
-    );
+    background: var(--radial-background);
 
     display: flex;
     justify-content: center;

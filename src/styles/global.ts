@@ -1,6 +1,14 @@
 import { createGlobalStyle } from 'styled-components'
+import { lighten } from 'polished'
 
 export const GlobalStyles = createGlobalStyle`
+  :root {
+    --radial-background: radial-gradient(58.93% 69.94% at 50% 100%, 
+      ${ctx => lighten(0.2, ctx.theme.colors.primary)} 0%, 
+      ${ctx => ctx.theme.colors.primary} 100%
+    );
+  }
+
   * {
     margin: 0;
     padding: 0;
