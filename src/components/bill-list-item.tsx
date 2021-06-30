@@ -1,16 +1,29 @@
+import { Bill } from '../interfaces/bill'
 import { BillListItemContainer } from '../styles/components/bill-list-item'
 
-export function BillListItem () {
+interface BillListItemProps {
+  bill: Bill;
+}
+
+export function BillListItem ({ bill: { name, amount, dueDate, paidIn } } : BillListItemProps) {
   return (
     <BillListItemContainer>
       <div className='bill-item-header'>
-        <h3>Tia maria</h3>
+        <h3>{name}</h3>
         <span>
-          R$ <strong>2.131,33</strong>
+          {new Intl.NumberFormat('pt-BR', {
+            currency: 'BRL',
+            style: 'currency'
+          }).format(amount)}
         </span>
       </div>
       <span>
-        Vence em <strong>16/03/21</strong>
+        {paidIn
+          ? <>Pago em <strong>{paidIn.toLocaleDateString()}</strong></>
+          : (new Date().getTime() > dueDate.getTime())
+              ? <>Venceu em <strong>{dueDate.toLocaleDateString()}</strong></>
+              : <>Vence em <strong>{dueDate.toLocaleDateString()}</strong></>
+        }
       </span>
     </BillListItemContainer>
   )
