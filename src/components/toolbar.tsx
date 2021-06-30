@@ -23,8 +23,8 @@ export function Toolbar () {
         <RiAddBoxLine size={30} />
       </button>
       <button
-        className={imSelected('/extract')}
-        onClick={() => router.push('/extract')}
+        className={imSelected('/extracts')}
+        onClick={() => router.push('/extracts')}
       >
         <RiFileList2Line size={32} />
       </button>
