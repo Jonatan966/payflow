@@ -7,8 +7,7 @@ export const UserProfileHeaderContainer = styled.header`
   padding: 1.5rem;
   margin-bottom: 2rem;
   padding-bottom: 2rem;
-  position: relative;
-
+  
   .profile, .header-footer {
     max-width: 1120px;
     margin: 0 auto;
