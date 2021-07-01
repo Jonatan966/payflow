@@ -1,3 +1,5 @@
+import { GetServerSideProps } from 'next'
+import { getSession } from 'next-auth/client'
 import Image from 'next/image'
 
 import { SignInWithGoogleButton } from '../components/sign-in-with-google-button'
@@ -20,4 +22,22 @@ export default function LoginPage () {
       </main>
     </LoginPageContainer>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const loggedUserSession = await getSession({ ctx })
+
+  if (loggedUserSession) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false
+      },
+      props: {}
+    }
+  }
+
+  return {
+    props: {}
+  }
 }
