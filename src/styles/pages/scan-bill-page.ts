@@ -48,6 +48,12 @@ export const ScanBillPageContainer = styled.div`
 
     video {
       background: #1F1F1F;
+      width: 100%;
+      object-fit: fill;
+    }
+
+    canvas {
+      display: none;
     }
   }
 
