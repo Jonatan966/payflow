@@ -8,6 +8,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@ericblade/quagga2": "^1.4.0",
     "@next-auth/fauna-adapter": "^0.2.1",
     "axios": "^0.21.1",
     "faunadb": "^4.3.0",
