@@ -1,4 +1,4 @@
-import { ReactNode, InputHTMLAttributes, DetailedHTMLProps } from 'react'
+import { forwardRef, ReactNode, InputHTMLAttributes, DetailedHTMLProps } from 'react'
 
 import { TextInputContainer } from '../styles/components/text-input'
 
@@ -6,11 +6,11 @@ interface TextInputProps extends DetailedHTMLProps<InputHTMLAttributes<HTMLInput
   icon: ReactNode;
 }
 
-export function TextInput ({ icon, ...props } : TextInputProps) {
+export const TextInput = forwardRef<HTMLInputElement, any>(function TextInputComponent ({ icon, ...props }: TextInputProps, ref) {
   return (
     <TextInputContainer>
       {icon}
-      <input {...props} />
+      <input {...props} ref={ref} />
     </TextInputContainer>
   )
-}
+})
