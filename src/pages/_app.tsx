@@ -7,9 +7,9 @@ import { GlobalStyles } from '../styles/global'
 export default function MyApp ({ Component, pageProps }: any) {
   return (
     <AppThemeProvider>
+      <GlobalStyles/>
       <AuthProvider>
         <Toaster />
-        <GlobalStyles/>
         <Component {...pageProps} />
       </AuthProvider>
     </AppThemeProvider>
