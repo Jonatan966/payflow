@@ -1,6 +1,5 @@
 import toast from 'react-hot-toast'
 import { useEffect } from 'react'
-import Link from 'next/link'
 import { FaArrowLeft } from 'react-icons/fa'
 import Quagga, { QuaggaJSResultObject } from '@ericblade/quagga2'
 import Router from 'next/router'
@@ -72,18 +71,22 @@ export default function ScanBillPage () {
   return (
     <ScanBillPageContainer>
       <header>
-        <Link href='/' passHref>
-          <FaArrowLeft size={20} />
-        </Link>
+        <FaArrowLeft
+          size={20}
+          onClick={() => Router.back()}
+          title='Voltar'
+          className='hovered'
+        />
+
         <span>Escaneie o código de barras do boleto</span>
       </header>
 
       <main id='scanner'>
       </main>
 
-      <footer>
-        <h3>Inserir código do boleto</h3>
-      </footer>
+      <button type='button' className='hovered'>
+        <h3>Inserir código do boleto manualmente</h3>
+      </button>
     </ScanBillPageContainer>
   )
 }
