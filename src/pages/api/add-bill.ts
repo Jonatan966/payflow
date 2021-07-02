@@ -20,12 +20,21 @@ export default async (request: NextApiRequest, response: NextApiResponse) => {
     return response.status(401).end()
   }
 
+  const userRef = await faunaClient.query(
+    query.Select('ref', query.Get(
+      query.Match(
+        query.Index('user_by_email'),
+        userEmail
+      )
+    ))
+  )
+
   const insertResult = await faunaClient.query(
     query.Create(
       query.Collection('bills'),
       {
         data: {
-          email: userEmail,
+          owner: userRef,
           name,
           amount,
           barcode,
