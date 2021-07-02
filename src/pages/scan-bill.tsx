@@ -1,13 +1,15 @@
 import toast from 'react-hot-toast'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { FaArrowLeft } from 'react-icons/fa'
-import Quagga, { QuaggaJSResultObject } from '@ericblade/quagga2'
+import Quagga, { QuaggaJSConfigObject, QuaggaJSResultObject } from '@ericblade/quagga2'
 import Router from 'next/router'
 
 import { ScanBillPageContainer } from '../styles/pages/scan-bill-page'
 import { api } from '../services/api'
 
 export default function ScanBillPage () {
+  const [isProcessing, setIsProcessing] = useState(false)
+
   function handleScan (error?: any) {
     if (error) {
       return
@@ -19,11 +21,15 @@ export default function ScanBillPage () {
   async function onDetectBill (result: QuaggaJSResultObject) {
     const barcode = result.codeResult.code
 
-    if (Number(barcode?.length) <= 40) {
+    console.log(barcode, barcode?.length)
+
+    if (Number(barcode?.length) <= 40 || isProcessing) {
       return
     }
 
     Quagga.offDetected(onDetectBill)
+
+    setIsProcessing(true)
 
     try {
       const checkResult = await toast.promise(
@@ -39,12 +45,15 @@ export default function ScanBillPage () {
       sessionStorage.setItem('@payflow:scanned-bill', JSON.stringify(checkResult.data))
       Router.push('/add-bill?before-scan=1')
     } catch {
-      setTimeout(() => Quagga.onDetected(onDetectBill), 750)
+      setTimeout(() => {
+        Quagga.onDetected(onDetectBill)
+        setIsProcessing(false)
+      }, 1000)
     }
   }
 
   useEffect(() => {
-    const quaggaConfig: any = {
+    const quaggaConfig: QuaggaJSConfigObject = {
       inputStream: {
         name: 'Live',
         type: 'LiveStream',
@@ -52,20 +61,32 @@ export default function ScanBillPage () {
         constraints: {
           facingMode: 'environment',
           width: 640,
-          height: 360
-        }
+          height: 360,
+          aspectRatio: {
+            min: 1,
+            max: 2
+          }
+        },
+        area: {
+          bottom: '20%',
+          top: '20%'
+        },
+        singleChannel: true
       },
-      frequency: 10,
-      decoder: { readers: ['i2of5_reader', '2of5_reader'] }
+      frequency: 5,
+      numOfWorkers: navigator.hardwareConcurrency || 4,
+      locator: {
+        patchSize: 'medium',
+        halfSample: true
+      },
+      decoder: {
+        readers: ['i2of5_reader', '2of5_reader']
+      }
     }
 
     Quagga.init(quaggaConfig, handleScan)
 
     Quagga.onDetected(onDetectBill)
-
-    return () => {
-      Quagga.stop()
-    }
   }, [])
 
   return (

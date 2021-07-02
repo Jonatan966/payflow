@@ -8,7 +8,7 @@ export const ScanBillPageContainer = styled.div`
     align-items: center;
     padding: 1rem;
 
-    z-index: 1;
+    z-index: 10;
 
     position: fixed;
     top: 0;
@@ -36,11 +36,12 @@ export const ScanBillPageContainer = styled.div`
     &:after, &:before {
       content: '';
       width: 100%;
-      height: 8rem;
+      height: 20%;
 
       position: absolute;
 
       background: rgba(0,0,0,.60);
+      z-index: 5;
     }
 
     &:before {
@@ -54,7 +55,10 @@ export const ScanBillPageContainer = styled.div`
     }
 
     canvas {
-      display: none;
+      background: transparent;
+      position: absolute;
+      width: 100%;
+      height: 100%;
     }
   }
 
@@ -71,5 +75,7 @@ export const ScanBillPageContainer = styled.div`
 
     cursor: pointer;
     border: none;
+
+    z-index: 10;
   }
 `
