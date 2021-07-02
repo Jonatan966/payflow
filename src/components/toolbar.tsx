@@ -11,20 +11,23 @@ export function Toolbar () {
   return (
     <ToolbarContainer>
       <button
-        className={imSelected('/')}
+        className={imSelected('/') + ' hovered'}
         onClick={() => router.push('/')}
+        title='Meus boletos'
       >
         <FaHome size={32} />
       </button>
       <button
-        className='add-bill'
-        onClick={() => router.push('/add-bill')}
+        className='add-bill hovered'
+        onClick={() => router.push('/scan-bill')}
+        title='Adicionar boleto'
       >
         <RiAddBoxLine size={30} />
       </button>
       <button
-        className={imSelected('/extracts')}
+        className={imSelected('/extracts') + ' hovered'}
         onClick={() => router.push('/extracts')}
+        title='Meu extrato'
       >
         <RiFileList2Line size={32} />
       </button>

@@ -39,12 +39,14 @@ export const ToolbarContainer = styled.footer`
 
     left: 0;
     right: 0;
+    z-index: 10;
 
     padding: 1rem;
 
     transform: translateY(-35%);
 
     background: ${ctx => ctx.theme.colors.primary};
+    box-shadow: var(--regular-box-shadow);
 
     svg {
       fill: ${ctx => ctx.theme.colors.background};

@@ -7,6 +7,8 @@ export const GlobalStyles = createGlobalStyle`
       ${ctx => lighten(0.2, ctx.theme.colors.primary)} 0%, 
       ${ctx => ctx.theme.colors.primary} 100%
     );
+
+    --regular-box-shadow: 0 .5rem 1rem rgba(0,0,0,.15);
   }
 
   * {
@@ -33,5 +35,13 @@ export const GlobalStyles = createGlobalStyle`
 
   body, input, button, textarea {
     font: 400 1rem 'Inter', sans-serif;
+  }
+
+  .hovered {
+    transition: filter 0.2s;
+
+    &:hover {
+      filter: brightness(0.8);
+    }
   }
 `

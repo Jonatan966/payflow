@@ -23,6 +23,7 @@ export const ScanBillPageContainer = styled.div`
 
     svg {
       fill: ${ctx => ctx.theme.colors.background};
+      cursor: pointer;
     }
   }
 
@@ -57,7 +58,7 @@ export const ScanBillPageContainer = styled.div`
     }
   }
 
-  footer {
+  button {
     text-align: center;
     padding: 1rem;
     color: ${ctx => ctx.theme.colors.heading};
@@ -66,6 +67,9 @@ export const ScanBillPageContainer = styled.div`
     position: fixed;
     bottom: 0;
     left: 0;
-    right: 0;
+    width: 100%;
+
+    cursor: pointer;
+    border: none;
   }
 `

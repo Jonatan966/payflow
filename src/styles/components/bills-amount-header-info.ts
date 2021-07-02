@@ -5,6 +5,7 @@ export const BillsAmountHeaderInfoContainer = styled.div`
 
   padding: 1.5rem;
   border-radius: 5px;
+  box-shadow: var(--regular-box-shadow);
 
   display: flex;
 
