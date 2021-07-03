@@ -9,7 +9,7 @@ import { SpinnerContainer } from '../styles/components/spinner'
 import { PanelPageContainer } from '../styles/pages/panel-page'
 
 export default function HomePage () {
-  const { data } = useSWR('/api/list-bills?mode=bills')
+  const { data } = useSWR('/api/list-bills?mode=pendents')
 
   return (
     <PanelPageContainer>
