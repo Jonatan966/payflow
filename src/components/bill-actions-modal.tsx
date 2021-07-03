@@ -12,7 +12,12 @@ interface BillActionsModalProps {
   onExecuteAction: () => void;
 }
 
-export function BillActionsModal ({ selectedBill, isOpen, onRequestClose, onExecuteAction }: BillActionsModalProps) {
+export function BillActionsModal ({
+  selectedBill,
+  isOpen,
+  onRequestClose,
+  onExecuteAction
+}: BillActionsModalProps) {
   async function handleRemoveBill () {
     try {
       await toast.promise(
