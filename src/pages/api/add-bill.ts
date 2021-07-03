@@ -38,7 +38,8 @@ export default async (request: NextApiRequest, response: NextApiResponse) => {
           name,
           amount,
           barcode,
-          dueDate
+          dueDate,
+          paidIn: 'null'
         }
       }
     )
