@@ -1,6 +1,8 @@
 import styled from 'styled-components'
 
 export const BillListItemContainer = styled.li`
+  cursor: pointer;
+
   .bill-item-header {
     display: flex;
     justify-content: space-between;

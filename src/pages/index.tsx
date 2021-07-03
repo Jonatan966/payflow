@@ -9,7 +9,7 @@ import { SpinnerContainer } from '../styles/components/spinner'
 import { PanelPageContainer } from '../styles/pages/panel-page'
 
 export default function HomePage () {
-  const { data } = useSWR('/api/list-bills?mode=pendents')
+  const { data, revalidate, isValidating } = useSWR('/api/list-bills?mode=pendents')
 
   return (
     <PanelPageContainer>
@@ -18,13 +18,14 @@ export default function HomePage () {
       </UserProfileHeader>
 
       <main>
-        {!data
+        {!data || isValidating
           ? <SpinnerContainer size={32} />
           : (
           <BillList
             title='Meus boletos'
             counterLabel='no total'
             bills={data?.results || []}
+            onExecuteAction={() => revalidate()}
           />
             )}
       </main>

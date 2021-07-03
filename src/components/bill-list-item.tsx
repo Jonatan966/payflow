@@ -1,23 +1,30 @@
 import { Bill } from '../interfaces/bill'
 import { BillListItemContainer } from '../styles/components/bill-list-item'
+import { numberToReal } from '../utils/numberToReal'
 
 interface BillListItemProps {
   bill: Bill;
+  onClick?: () => void;
 }
 
-export function BillListItem ({ bill: { name, amount, dueDate, paidIn } } : BillListItemProps) {
+export function BillListItem ({
+  bill: {
+    name,
+    amount,
+    dueDate,
+    paidIn
+  },
+  onClick
+} : BillListItemProps) {
   const parsedDueDate = new Date(dueDate)
   const parsedPaidIn = (paidIn !== 'null' && !!paidIn) && new Date(paidIn)
 
   return (
-    <BillListItemContainer>
+    <BillListItemContainer onClick={onClick}>
       <div className='bill-item-header'>
         <h3>{name}</h3>
         <span>
-          {new Intl.NumberFormat('pt-BR', {
-            currency: 'BRL',
-            style: 'currency'
-          }).format(amount)}
+          {numberToReal(amount)}
         </span>
       </div>
       <span>
