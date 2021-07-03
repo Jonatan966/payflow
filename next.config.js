@@ -1,4 +1,6 @@
-module.exports = {
+const withPWA = require('next-pwa')
+
+module.exports = withPWA({
   images: {
     domains: [
       'storage.googleapis.com',
@@ -9,5 +11,11 @@ module.exports = {
       'lh5.googleusercontent.com',
       'lh6.googleusercontent.com'
     ]
+  },
+  pwa: {
+    dest: 'public',
+    disable: process.env.NODE_ENV !== 'production',
+    register: true,
+    sw: '/sw.js'
   }
-}
+})
