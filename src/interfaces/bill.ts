@@ -2,7 +2,7 @@ export interface Bill {
   name: string;
   amount: number;
   dueDate: Date;
-  paidIn?: Date;
+  paidIn?: string;
   barcode: string;
   id: string;
 }

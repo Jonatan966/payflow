@@ -7,6 +7,7 @@ interface BillListItemProps {
 
 export function BillListItem ({ bill: { name, amount, dueDate, paidIn } } : BillListItemProps) {
   const parsedDueDate = new Date(dueDate)
+  const parsedPaidIn = (paidIn !== 'null' && !!paidIn) && new Date(paidIn)
 
   return (
     <BillListItemContainer>
@@ -20,8 +21,8 @@ export function BillListItem ({ bill: { name, amount, dueDate, paidIn } } : Bill
         </span>
       </div>
       <span>
-        {paidIn
-          ? <>Pago em <strong>{paidIn.toLocaleDateString()}</strong></>
+        {parsedPaidIn
+          ? <>Pago em <strong>{parsedPaidIn.toLocaleDateString()}</strong></>
           : (new Date().getTime() > parsedDueDate.getTime())
               ? <>Venceu em <strong>{parsedDueDate.toLocaleDateString()}</strong></>
               : <>Vence em <strong>{parsedDueDate.toLocaleDateString()}</strong></>
