@@ -23,6 +23,7 @@ export default function ExtractsPage () {
             title='Meu extrato'
             counterLabel='pagos'
             bills={data?.results || []}
+            readOnly
           />
           )}
       </main>
