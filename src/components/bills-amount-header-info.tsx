@@ -9,7 +9,7 @@ interface BillsAmountHeaderInfoProps {
 export function BillsAmountHeaderInfo ({ amount }: BillsAmountHeaderInfoProps) {
   return (
     <BillsAmountHeaderInfoContainer>
-      <Image width={55} height={35} src='/images/logomini.png' />
+      <Image width={60} height={5} src='/images/logomini.png' />
       <span className="wrapper"/>
       <p>
         Você tem <strong>{amount} boletos</strong> <br />

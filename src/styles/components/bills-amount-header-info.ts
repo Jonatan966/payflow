@@ -3,7 +3,7 @@ import styled from 'styled-components'
 export const BillsAmountHeaderInfoContainer = styled.div`
   background: ${ctx => ctx.theme.colors.gray};
 
-  padding: 1.5rem;
+  padding: 1.25rem;
   border-radius: 5px;
   box-shadow: var(--regular-box-shadow);
 
@@ -18,6 +18,11 @@ export const BillsAmountHeaderInfoContainer = styled.div`
     opacity: 0.32;
     width: 1px;
 
-    margin: 0 1.5rem;
+    margin: 0 1rem;
+  }
+
+  img {
+    max-height: .5rem !important;
+    max-width: 4rem !important;
   }
 `
