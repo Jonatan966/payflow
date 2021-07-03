@@ -1,9 +1,11 @@
 import styled from 'styled-components'
 
 export const BillListContainer = styled.section`
+  text-align: center;
 
   ul li {
     list-style: none;
+    text-align: initial;
   }
 
   li + li {
