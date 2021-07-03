@@ -22,6 +22,6 @@ Extras:
   ☐ Modal de modos de inserção de boleto (por leitura ou digitando manualmente)
   ✔ Colocar um título em todas as rotas @done(21-07-03 13:40)
   ✔ Criar um ícone para a aplicação @done(21-07-03 13:49)
-  ☐ Transformar em PWA
+  ✔ Transformar em PWA @done(21-07-03 19:58)
   ☐ Criar um readme do projeto
   ✔ Refatorar lista de boletos @done(21-07-03 15:15)
