@@ -3,7 +3,24 @@ Primeiros passos:
   ✔ Criar estilos globais @started(21-06-29 12:51) @done(21-06-29 13:01) @lasted(10m53s)
 Designs das páginas:
   ✔ Página de login @started(21-06-29 13:11) @done(21-06-29 13:55) @lasted(44m2s)
-  ☐ Lista de boletos pendentes
-  ☐ Extratos
-  ☐ Cadastro de boleto
-  ☐ Leitura de código de barras
+  ✔ Lista de boletos pendentes @done(21-07-03 13:24)
+  ✔ Extratos @done(21-07-03 13:24)
+  ✔ Cadastro de boleto @done(21-07-03 13:24)
+  ✔ Leitura de código de barras @done(21-07-03 13:24)
+Funcionalidades principais:
+  ✔ Login com o Google @done(21-07-03 13:26)
+  ✔ Leitura de código de barras @done(21-07-03 13:26)
+  ✔ Cadastro de boleto @done(21-07-03 13:26)
+  ✔ Listagem de boletos @done(21-07-03 13:26)
+  ✔ Listagem do extrato @done(21-07-03 13:26)
+  ✔ Remover boleto @done(21-07-03 13:26)
+  ✔ Marcar boleto como pago @done(21-07-03 13:26)
+Extras:
+  ☐ Não permitir que um usuário sem login acesse o painel
+  ☐ Animação de entrada e saída no modal
+  ☐ Modal de configurações
+  ☐ Modal de modos de inserção de boleto (por leitura ou digitando manualmente)
+  ☐ Colocar um título em todas as rotas
+  ☐ Criar um ícone para a aplicação
+  ☐ Transformar em PWA
+  ☐ Criar um readme do projeto
