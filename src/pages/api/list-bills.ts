@@ -61,7 +61,8 @@ export default async (request: NextApiRequest, response: NextApiResponse) => {
       amount: data.amount,
       barcode: data.barcode,
       dueDate: data.dueDate,
-      name: data.name
+      name: data.name,
+      paidIn: data.paidIn
     }))
 
     return response.json({
