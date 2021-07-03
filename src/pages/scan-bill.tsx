@@ -1,3 +1,5 @@
+import { getSession } from 'next-auth/client'
+import { GetServerSideProps } from 'next'
 import toast from 'react-hot-toast'
 import { useEffect, useState } from 'react'
 import { FaArrowLeft } from 'react-icons/fa'
@@ -110,4 +112,22 @@ export default function ScanBillPage () {
       </button>
     </ScanBillPageContainer>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const loggedUserSession = await getSession({ ctx })
+
+  if (!loggedUserSession) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false
+      },
+      props: {}
+    }
+  }
+
+  return {
+    props: {}
+  }
 }

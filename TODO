@@ -16,7 +16,7 @@ Funcionalidades principais:
   ✔ Remover boleto @done(21-07-03 13:26)
   ✔ Marcar boleto como pago @done(21-07-03 13:26)
 Extras:
-  ☐ Não permitir que um usuário sem login acesse o painel
+  ✔ Não permitir que um usuário sem login acesse o painel @done(21-07-03 13:33)
   ☐ Animação de entrada e saída no modal
   ☐ Modal de configurações
   ☐ Modal de modos de inserção de boleto (por leitura ou digitando manualmente)

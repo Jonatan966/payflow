@@ -1,3 +1,5 @@
+import { GetServerSideProps } from 'next'
+import { getSession } from 'next-auth/client'
 import useSWR from 'swr'
 
 import { BillList } from '../components/bill-list'
@@ -31,4 +33,22 @@ export default function ExtractsPage () {
       <Toolbar />
     </PanelPageContainer>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const loggedUserSession = await getSession({ ctx })
+
+  if (!loggedUserSession) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false
+      },
+      props: {}
+    }
+  }
+
+  return {
+    props: {}
+  }
 }

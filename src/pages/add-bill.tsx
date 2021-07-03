@@ -1,10 +1,13 @@
-import Router from 'next/router'
 import { useEffect, useState } from 'react'
+import { GetServerSideProps } from 'next'
+import { getSession } from 'next-auth/client'
+import Router from 'next/router'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { FaArrowLeft, FaBarcode } from 'react-icons/fa'
 import { FiFileText, FiXCircle } from 'react-icons/fi'
 import { RiWalletLine } from 'react-icons/ri'
+import { Boleto } from '@mrmgomes/boleto-utils'
 
 import { TextInput } from '../components/text-input'
 import { Bill } from '../interfaces/bill'
@@ -12,7 +15,6 @@ import { api } from '../services/api'
 import { ActionButtonFooterContainer } from '../styles/components/action-buttons-footer'
 import { SpinnerContainer } from '../styles/components/spinner'
 import { AddBillPageContainer } from '../styles/pages/add-bill-page'
-import { Boleto } from '@mrmgomes/boleto-utils'
 
 export default function AddBillPage () {
   const [isSavingBill, setIsSavingBill] = useState(false)
@@ -122,4 +124,22 @@ export default function AddBillPage () {
       </form>
     </AddBillPageContainer>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const loggedUserSession = await getSession({ ctx })
+
+  if (!loggedUserSession) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false
+      },
+      props: {}
+    }
+  }
+
+  return {
+    props: {}
+  }
 }
