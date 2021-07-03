@@ -10,8 +10,11 @@ import { RiWalletLine } from 'react-icons/ri'
 import { Boleto } from '@mrmgomes/boleto-utils'
 
 import { TextInput } from '../components/text-input'
+import { PageHead } from '../components/page-head'
+
 import { Bill } from '../interfaces/bill'
 import { api } from '../services/api'
+
 import { ActionButtonFooterContainer } from '../styles/components/action-buttons-footer'
 import { SpinnerContainer } from '../styles/components/spinner'
 import { AddBillPageContainer } from '../styles/pages/add-bill-page'
@@ -66,6 +69,7 @@ export default function AddBillPage () {
 
   return (
     <AddBillPageContainer>
+      <PageHead title='Adicionar boleto'/>
       <header>
         <FaArrowLeft size={20} onClick={() => Router.back()} />
         <h2>Preencha os dados do boleto</h2>

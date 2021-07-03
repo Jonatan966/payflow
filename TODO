@@ -20,7 +20,7 @@ Extras:
   ☐ Animação de entrada e saída no modal
   ☐ Modal de configurações
   ☐ Modal de modos de inserção de boleto (por leitura ou digitando manualmente)
-  ☐ Colocar um título em todas as rotas
+  ✔ Colocar um título em todas as rotas @done(21-07-03 13:40)
   ☐ Criar um ícone para a aplicação
   ☐ Transformar em PWA
   ☐ Criar um readme do projeto

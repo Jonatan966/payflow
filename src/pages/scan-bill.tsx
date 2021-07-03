@@ -6,6 +6,8 @@ import { FaArrowLeft } from 'react-icons/fa'
 import Quagga, { QuaggaJSConfigObject, QuaggaJSResultObject } from '@ericblade/quagga2'
 import Router from 'next/router'
 
+import { PageHead } from '../components/page-head'
+
 import { ScanBillPageContainer } from '../styles/pages/scan-bill-page'
 import { api } from '../services/api'
 
@@ -22,8 +24,6 @@ export default function ScanBillPage () {
 
   async function onDetectBill (result: QuaggaJSResultObject) {
     const barcode = result.codeResult.code
-
-    console.log(barcode, barcode?.length)
 
     if (Number(barcode?.length) <= 40 || isProcessing) {
       return
@@ -93,6 +93,7 @@ export default function ScanBillPage () {
 
   return (
     <ScanBillPageContainer>
+      <PageHead title='Escanear boleto'/>
       <header>
         <FaArrowLeft
           size={20}

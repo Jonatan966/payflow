@@ -4,6 +4,7 @@ import useSWR from 'swr'
 
 import { BillList } from '../components/bill-list'
 import { BillsAmountHeaderInfo } from '../components/bills-amount-header-info'
+import { PageHead } from '../components/page-head'
 import { Toolbar } from '../components/toolbar'
 import { UserProfileHeader } from '../components/user-profile-header'
 import { SpinnerContainer } from '../styles/components/spinner'
@@ -15,6 +16,7 @@ export default function HomePage () {
 
   return (
     <PanelPageContainer>
+      <PageHead title='Meus boletos'/>
       <UserProfileHeader>
         {data && <BillsAmountHeaderInfo amount={data.results.length} />}
       </UserProfileHeader>

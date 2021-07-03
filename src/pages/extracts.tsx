@@ -3,6 +3,7 @@ import { getSession } from 'next-auth/client'
 import useSWR from 'swr'
 
 import { BillList } from '../components/bill-list'
+import { PageHead } from '../components/page-head'
 import { Toolbar } from '../components/toolbar'
 import { UserProfileHeader } from '../components/user-profile-header'
 import { SpinnerContainer } from '../styles/components/spinner'
@@ -14,6 +15,7 @@ export default function ExtractsPage () {
 
   return (
     <PanelPageContainer>
+      <PageHead title='Meu extrato'/>
       <UserProfileHeader>
       </UserProfileHeader>
 
