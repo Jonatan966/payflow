@@ -62,8 +62,8 @@ export default function ScanBillPage () {
         target: '#scanner',
         constraints: {
           facingMode: 'environment',
-          width: 640,
-          height: 360,
+          width: 1920,
+          height: 1000,
           aspectRatio: {
             min: 1,
             max: 2
