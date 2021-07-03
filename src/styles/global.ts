@@ -46,7 +46,6 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   .modal-overlay {
-    background: rgba(0,0,0,0.8);
     position: fixed;
     top: 0;
     bottom: 0;
@@ -59,4 +58,57 @@ export const GlobalStyles = createGlobalStyle`
 
     z-index: 999;
   }
+
+  .modal-enter-anim {
+    animation: fade-in .5s forwards;
+
+    > div {
+      animation: move-in .5s forwards;
+    }
+  }
+
+  .modal-out-anim {
+    animation:  fade-out .5s forwards;
+
+    > div {
+      animation: move-out .5s forwards;
+    }
+  }
+
+  @keyframes move-in {
+    from {
+      transform: translateY(100%);
+    }
+    to {
+      transform: translateY(0%);
+    }
+  }
+  @keyframes move-out {
+    from {
+      transform: translateY(0%);
+    }
+    to {
+      transform: translateY(100%);
+    }
+  }
+
+  @keyframes fade-in {
+    from {
+      background: rgba(0,0,0,0);
+    }
+
+    to {
+      background: rgba(0,0,0,0.8);
+    }
+  }
+  @keyframes fade-out {
+    from {
+      background: rgba(0,0,0,0.8);
+    }
+
+    to {
+      background: rgba(0,0,0,0);
+    }
+  }
+
 `

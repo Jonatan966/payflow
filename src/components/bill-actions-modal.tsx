@@ -49,8 +49,6 @@ export function BillActionsModal ({ selectedBill, isOpen, onRequestClose, onExec
     <BillActionsModalContainer
       isOpen={isOpen}
       onRequestClose={onRequestClose}
-      overlayClassName='modal-overlay'
-      ariaHideApp={false}
     >
       <p>
       O boleto <strong>{selectedBill.name}</strong> {' '}

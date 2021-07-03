@@ -1,12 +1,7 @@
 import styled from 'styled-components'
-import Modal from 'react-modal'
+import { AppModalContainer } from './app-modal'
 
-export const BillActionsModalContainer = styled(Modal)`
-  background: ${ctx => ctx.theme.colors.background};
-
-  width: 100%;
-  /* padding: 1rem; */
-
+export const BillActionsModalContainer = styled(AppModalContainer)`
   p {
     text-align: center;
     font-size: 1.25rem;
@@ -16,18 +11,9 @@ export const BillActionsModalContainer = styled(Modal)`
     margin: 2rem auto 1rem;
   }
 
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-
   button {
     background: none;
     border: none;
-
-    padding: 1.25rem;
-
-    font-size: 0.95rem;
-    cursor: pointer;
   }
 
   .main-action-buttons {
