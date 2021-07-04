@@ -15,5 +15,8 @@ export const AppModalContainer = styled(AppModal)`
 
     font-size: 0.95rem;
     cursor: pointer;
+    border: none;
+
+    text-align: center;
   }
 `

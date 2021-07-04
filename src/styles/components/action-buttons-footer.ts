@@ -13,6 +13,8 @@ export const ActionButtonFooterContainer = styled.footer`
     color: ${ctx => ctx.theme.colors.body};
     padding: 1.25rem;
 
+    cursor: pointer;
+
     &.main {
       color: ${ctx => ctx.theme.colors.primary};
     }

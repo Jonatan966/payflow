@@ -13,6 +13,7 @@ export const AddBillPageContainer = styled.div`
 
     svg {
       fill: ${ctx => ctx.theme.colors.placeholder};
+      cursor: pointer;
     }
   }
 

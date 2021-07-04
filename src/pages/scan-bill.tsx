@@ -16,7 +16,8 @@ export default function ScanBillPage () {
 
   function handleScan (error?: any) {
     if (error) {
-      return
+      toast.error('Não foi possível localizar uma câmera em seu dispositivo')
+      return Router.replace('/')
     }
 
     Quagga.start()
@@ -55,6 +56,12 @@ export default function ScanBillPage () {
   }
 
   useEffect(() => {
+    if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) {
+      toast.error('Seu dispositivo não oferece suporte para acesso à câmera')
+      Router.replace('/')
+      return
+    }
+
     const quaggaConfig: QuaggaJSConfigObject = {
       inputStream: {
         name: 'Live',
@@ -105,12 +112,7 @@ export default function ScanBillPage () {
         <span>Escaneie o código de barras do boleto</span>
       </header>
 
-      <main id='scanner'>
-      </main>
-
-      <button type='button' className='hovered'>
-        <h3>Inserir código do boleto manualmente</h3>
-      </button>
+      <main id='scanner' />
     </ScanBillPageContainer>
   )
 }

@@ -1,7 +1,7 @@
 import { ReactNode } from 'react'
 import Modal from 'react-modal'
 
-interface AppModalProps {
+export interface AppModalProps {
   children?: ReactNode;
   className?: string;
   isOpen: boolean;

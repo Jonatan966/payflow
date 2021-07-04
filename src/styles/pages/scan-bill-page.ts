@@ -61,21 +61,4 @@ export const ScanBillPageContainer = styled.div`
       height: 100%;
     }
   }
-
-  button {
-    text-align: center;
-    padding: 1rem;
-    color: ${ctx => ctx.theme.colors.heading};
-    background: ${ctx => ctx.theme.colors.background};
-
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-
-    cursor: pointer;
-    border: none;
-
-    z-index: 10;
-  }
 `

@@ -71,7 +71,7 @@ export default function AddBillPage () {
     <AddBillPageContainer>
       <PageHead title='Adicionar boleto'/>
       <header>
-        <FaArrowLeft size={20} onClick={() => Router.back()} />
+        <FaArrowLeft size={20} onClick={() => Router.back()} className='hovered' />
         <h2>Preencha os dados do boleto</h2>
       </header>
 
@@ -112,12 +112,13 @@ export default function AddBillPage () {
                 <button
                   type='button'
                   onClick={() => Router.replace('/')}
+                  className='hovered'
                 >
                   Cancelar
                 </button>
                 <button
                   type='submit'
-                  className='main'
+                  className='main hovered'
                 >
                   Cadastrar
                 </button>
