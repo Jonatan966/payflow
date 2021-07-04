@@ -9,6 +9,8 @@ export const BillActionsModalContainer = styled(AppModalContainer)`
     max-width: 13rem;
 
     margin: 2rem auto 1rem;
+
+    color: ${ctx => ctx.theme.colors.heading};
   }
 
   button {

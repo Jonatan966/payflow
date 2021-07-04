@@ -18,11 +18,11 @@ export const ScanBillPageContainer = styled.div`
     span {
       flex: 1;
       text-align: center;
-      color: ${ctx => ctx.theme.colors.background};
+      color: ${ctx => ctx.theme.colors.shape};
     }
 
     svg {
-      fill: ${ctx => ctx.theme.colors.background};
+      fill: ${ctx => ctx.theme.colors.shape};
       cursor: pointer;
     }
   }

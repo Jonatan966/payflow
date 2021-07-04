@@ -11,7 +11,7 @@ export const darkTheme: Omit<DefaultTheme, 'toggleTheme'> = {
     body: '#737380',
     placeholder: '#B1B0B8',
 
-    stroke: '#000000',
+    stroke: '#727280',
     shape: '#FAFAFC',
     background: '#0D0D0D'
   }
