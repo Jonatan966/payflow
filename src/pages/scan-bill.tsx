@@ -119,7 +119,10 @@ export default function ScanBillPage () {
       <header>
         <FaArrowLeft
           size={20}
-          onClick={() => Router.back()}
+          onClick={() => {
+            unlockOrientation()
+            Router.back()
+          }}
           title='Voltar'
           className='hovered'
         />
