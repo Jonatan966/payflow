@@ -4,7 +4,7 @@ import { getSession } from 'next-auth/client'
 import Router from 'next/router'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
-import { FaArrowLeft, FaBarcode } from 'react-icons/fa'
+import { FaBarcode } from 'react-icons/fa'
 import { FiFileText, FiXCircle } from 'react-icons/fi'
 import { RiWalletLine } from 'react-icons/ri'
 import { Boleto } from '@mrmgomes/boleto-utils'
@@ -71,7 +71,6 @@ export default function AddBillPage () {
     <AddBillPageContainer>
       <PageHead title='Adicionar boleto'/>
       <header>
-        <FaArrowLeft size={20} onClick={() => Router.back()} className='hovered' />
         <h2>Preencha os dados do boleto</h2>
       </header>
 
