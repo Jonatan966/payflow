@@ -49,13 +49,15 @@ export default function HomePage () {
         >
           {!data?.results || isValidating
             ? <SpinnerContainer size={32}/>
-            : data.results.map(bill =>
-              <BillListItem
-                bill={bill}
-                key={bill.id}
-                onClick={() => handleSelectBill(bill)}
-              />
-            )
+            : data.results.length
+              ? data.results.map(bill =>
+                  <BillListItem
+                    bill={bill}
+                    key={bill.id}
+                    onClick={() => handleSelectBill(bill)}
+                  />
+                )
+              : <h3>Não há boletos</h3>
           }
         </BillList>
       </main>

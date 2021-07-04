@@ -28,12 +28,14 @@ export default function ExtractsPage () {
         >
           {!data?.results || isValidating
             ? <SpinnerContainer size={32}/>
-            : data.results.map(bill =>
-              <BillListItem
-                bill={bill}
-                key={bill.id}
-              />
-            )
+            : data.results.length
+              ? data.results.map(bill =>
+                  <BillListItem
+                    bill={bill}
+                    key={bill.id}
+                  />
+                )
+              : <h3>Não há boletos</h3>
           }
         </BillList>
       </main>
