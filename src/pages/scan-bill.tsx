@@ -14,9 +14,17 @@ import { api } from '../services/api'
 export default function ScanBillPage () {
   const [isProcessing, setIsProcessing] = useState(false)
 
-  function handleScan (error?: any) {
+  async function unlockOrientation () {
+    try {
+      screen.orientation.unlock()
+      await document.exitFullscreen()
+    } catch {}
+  }
+
+  async function handleScan (error?: any) {
     if (error) {
       toast.error('Não foi possível localizar uma câmera em seu dispositivo')
+      await unlockOrientation()
       return Router.replace('/')
     }
 
@@ -45,6 +53,7 @@ export default function ScanBillPage () {
       )
 
       await Quagga.stop()
+      unlockOrientation()
       sessionStorage.setItem('@payflow:scanned-bill', JSON.stringify(checkResult.data))
       Router.push('/add-bill?before-scan=1')
     } catch {
@@ -58,6 +67,8 @@ export default function ScanBillPage () {
   useEffect(() => {
     if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) {
       toast.error('Seu dispositivo não oferece suporte para acesso à câmera')
+
+      unlockOrientation()
       Router.replace('/')
       return
     }

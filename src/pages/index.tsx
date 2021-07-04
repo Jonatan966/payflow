@@ -2,6 +2,7 @@ import { GetServerSideProps } from 'next'
 import { getSession } from 'next-auth/client'
 import { useState } from 'react'
 import useSWR from 'swr'
+
 import { BillActionsModal } from '../components/bill-actions-modal'
 
 import { BillList } from '../components/bill-list'

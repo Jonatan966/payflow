@@ -6,14 +6,23 @@ import { ActionsListModalContainer } from '../styles/components/actions-list-mod
 import { AppModalProps } from './app-modal'
 
 export function BillInsertionOptionsModal ({ isOpen, onRequestClose }: AppModalProps) {
-  function handleRedirect (targetPage: string) {
+  async function handleRedirect (targetPage: string) {
     onRequestClose()
-    Router.push(targetPage)
+    await Router.push(targetPage)
+  }
+
+  async function handleOpenScanBillPage () {
+    try {
+      await document.documentElement.requestFullscreen()
+      await screen.orientation.lock('landscape')
+    } catch {} finally {
+      await handleRedirect('/scan-bill')
+    }
   }
 
   return (
     <ActionsListModalContainer isOpen={isOpen} onRequestClose={onRequestClose}>
-      <button className='hovered' onClick={() => handleRedirect('/scan-bill')}>
+      <button className='hovered' onClick={handleOpenScanBillPage}>
         <BiScan size={25} />
         <span>Escanear boleto</span>
       </button>
