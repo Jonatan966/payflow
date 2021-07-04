@@ -8,7 +8,7 @@ export const AddBillPageContainer = styled.div`
     h2 {
       text-align: center;
       padding: 1rem;
-
+      color: ${ctx => ctx.theme.colors.heading};
     }    
 
     svg {

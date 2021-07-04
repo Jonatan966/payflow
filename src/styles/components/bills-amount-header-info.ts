@@ -2,6 +2,7 @@ import styled from 'styled-components'
 
 export const BillsAmountHeaderInfoContainer = styled.div`
   background: ${ctx => ctx.theme.colors.gray};
+  color: ${ctx => ctx.theme.colors.shape};
 
   padding: 1.25rem;
   border-radius: 5px;

@@ -8,6 +8,8 @@ export const ActionsListModalContainer = styled(AppModalContainer)`
     align-items: center;
     justify-content: center;
 
+    color: ${ctx => ctx.theme.colors.heading};
+
     span {
       flex: 1;
     }

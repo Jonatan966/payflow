@@ -18,5 +18,6 @@ export const AppModalContainer = styled(AppModal)`
     border: none;
 
     text-align: center;
+    background: none;
   }
 `

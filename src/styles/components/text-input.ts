@@ -12,6 +12,7 @@ export const TextInputContainer = styled.label`
 
     border: none;
     border-left: 1px solid ${ctx => ctx.theme.colors.stroke};
+    background:  ${ctx => ctx.theme.colors.background};
 
     color: ${ctx => ctx.theme.colors.body};
 
