@@ -1,11 +1,7 @@
-import { query as q } from 'faunadb'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { getSession } from 'next-auth/client'
 
-import { Bill } from '../../interfaces/bill'
-import { FaunaQueryResults } from '../../interfaces/fauna-query-result'
-
-import { faunaClient } from '../../services/fauna'
+import { connectToMongoDatabase } from '../../services/mongodb'
 
 export default async (request: NextApiRequest, response: NextApiResponse) => {
   const userSession = await getSession({ req: request })
@@ -21,56 +17,32 @@ export default async (request: NextApiRequest, response: NextApiResponse) => {
     return response.status(401).end()
   }
 
-  const getUserRef = q.Select('ref',
-    q.Get(
-      q.Match(
-        q.Index('user_by_email'),
-        userEmail
-      )
-    )
-  )
+  const { db } = await connectToMongoDatabase()
 
-  const matchBillsByUser = q.Match(q.Index('bills_by_user'), getUserRef)
+  const storagedUser = await db
+    .collection('users')
+    .findOne({ email: userEmail })
 
-  const matchBillsNotPaidYet = q.Match(
-    q.Index('bills_by_payment'),
-    q.Select('paidIn', q.Get(matchBillsByUser), 'null')
-  )
+  const searchBillQuery: any = {}
 
-  const matchBillsAlreadyPaid = q.Difference(
-    q.Match(q.Index('all_bills')),
-    matchBillsNotPaidYet
-  )
-
-  const queryModes = {
-    all: matchBillsByUser,
-    pendents: matchBillsNotPaidYet,
-    extract: matchBillsAlreadyPaid
+  if (mode === 'extract') {
+    searchBillQuery.paidIn = {
+      $exists: true
+    }
   }
 
-  try {
-    const queryResult = await faunaClient.query<FaunaQueryResults<Bill>>(
-      q.Map(
-        q.Paginate(queryModes[mode]),
-        q.Lambda('X', q.Get(q.Var('X')))
-      )
-    )
-
-    const mappedQueryResult = queryResult.data.map(({ ref, data }) => ({
-      id: ref.id,
-      amount: data.amount,
-      barcode: data.barcode,
-      dueDate: data.dueDate,
-      name: data.name,
-      paidIn: data.paidIn
-    }))
-
-    return response.json({
-      results: mappedQueryResult
-    })
-  } catch {
-    return response.json({
-      results: []
-    })
+  if (mode === 'pendents') {
+    searchBillQuery.paidIn = {
+      $exists: false
+    }
   }
+
+  const bills = await db.collection('bills').find({
+    owner: storagedUser._id,
+    ...searchBillQuery
+  }).toArray()
+
+  return response.json({
+    results: bills
+  })
 }

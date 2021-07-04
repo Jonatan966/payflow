@@ -1,9 +1,8 @@
-import { query } from 'faunadb'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { getSession } from 'next-auth/client'
 
 import { Bill } from '../../interfaces/bill'
-import { faunaClient } from '../../services/fauna'
+import { connectToMongoDatabase } from '../../services/mongodb'
 
 export default async (request: NextApiRequest, response: NextApiResponse) => {
   if (request.method !== 'POST') {
@@ -20,30 +19,26 @@ export default async (request: NextApiRequest, response: NextApiResponse) => {
     return response.status(401).end()
   }
 
-  const userRef = await faunaClient.query(
-    query.Select('ref', query.Get(
-      query.Match(
-        query.Index('user_by_email'),
-        userEmail
-      )
-    ))
-  )
+  const { db } = await connectToMongoDatabase()
 
-  const insertResult = await faunaClient.query(
-    query.Create(
-      query.Collection('bills'),
-      {
-        data: {
-          owner: userRef,
-          name,
-          amount,
-          barcode,
-          dueDate,
-          paidIn: 'null'
-        }
-      }
-    )
-  ) as any
+  const storagedUser = await db
+    .collection('users')
+    .findOne({ email: userEmail })
 
-  return response.status(201).json(insertResult.data)
+  const billData = {
+    name,
+    amount,
+    barcode,
+    dueDate,
+    owner: storagedUser._id
+  }
+
+  const insertResult = await db
+    .collection('bills')
+    .insertOne(billData)
+
+  return response.status(201).json({
+    ...billData,
+    _id: insertResult.insertedId
+  })
 }

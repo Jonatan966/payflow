@@ -1,8 +1,8 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { getSession } from 'next-auth/client'
-import { query as q } from 'faunadb'
+import { ObjectID } from 'mongodb'
 
-import { faunaClient } from '../../services/fauna'
+import { connectToMongoDatabase } from '../../services/mongodb'
 
 export default async (request: NextApiRequest, response: NextApiResponse) => {
   if (request.method !== 'PATCH') {
@@ -19,24 +19,17 @@ export default async (request: NextApiRequest, response: NextApiResponse) => {
     return response.status(401).end()
   }
 
-  const getUserRef = q.Select('ref',
-    q.Get(
-      q.Match(
-        q.Index('user_by_email'),
-        userEmail
-      )
-    )
-  )
+  const { db } = await connectToMongoDatabase()
+  const billsCollection = db.collection('bills')
 
-  const matchBillsByUser = q.Match(q.Index('bills_by_user'), getUserRef)
-  const matchTargetBill = q.Ref(
-    q.Collection('bills'),
-    q.Select('ref', matchBillsByUser, id)
-  )
+  const storagedUser = await db
+    .collection('users')
+    .findOne({ email: userEmail })
 
-  const asTargetBillExists = await faunaClient.query(
-    q.Exists(matchTargetBill)
-  )
+  const asTargetBillExists = await billsCollection.findOne({
+    _id: new ObjectID(String(id)),
+    owner: storagedUser._id
+  })
 
   if (!asTargetBillExists) {
     return response.status(400).send({
@@ -44,15 +37,18 @@ export default async (request: NextApiRequest, response: NextApiResponse) => {
     })
   }
 
-  const updateResult = await faunaClient.query(
-    q.Update(matchTargetBill, {
-      data: {
+  const result = await billsCollection
+    .updateOne({ _id: asTargetBillExists._id }, {
+      $set: {
         paidIn: new Date().toUTCString()
       }
     })
-  )
 
-  console.log(updateResult)
+  if (result.modifiedCount < 1) {
+    return response.status(500).send({
+      message: 'Ocorreu um erro interno ao tentar marcar este boleto como pago'
+    })
+  }
 
   return response.status(200).end()
 }
