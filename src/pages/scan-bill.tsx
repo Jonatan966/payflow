@@ -96,6 +96,10 @@ export default function ScanBillPage () {
     Quagga.init(quaggaConfig, handleScan)
 
     Quagga.onDetected(onDetectBill)
+
+    return () => {
+      Quagga.stop()
+    }
   }, [])
 
   return (
