@@ -4,20 +4,19 @@ import Router from 'next/router'
 
 import { ActionsListModalContainer } from '../styles/components/actions-list-modal'
 import { AppModalProps } from './app-modal'
+import { useScreenOrientation } from '../hooks/use-screen-orientation'
 
 export function BillInsertionOptionsModal ({ isOpen, onRequestClose }: AppModalProps) {
+  const { lockOrientation } = useScreenOrientation()
+
   async function handleRedirect (targetPage: string) {
     onRequestClose()
     await Router.push(targetPage)
   }
 
   async function handleOpenScanBillPage () {
-    try {
-      await document.documentElement.requestFullscreen()
-      await screen.orientation.lock('landscape')
-    } catch {} finally {
-      await handleRedirect('/scan-bill')
-    }
+    await lockOrientation()
+    await handleRedirect('/scan-bill')
   }
 
   return (

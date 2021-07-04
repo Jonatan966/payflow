@@ -10,16 +10,11 @@ import { PageHead } from '../components/page-head'
 
 import { ScanBillPageContainer } from '../styles/pages/scan-bill-page'
 import { api } from '../services/api'
+import { useScreenOrientation } from '../hooks/use-screen-orientation'
 
 export default function ScanBillPage () {
   const [isProcessing, setIsProcessing] = useState(false)
-
-  async function unlockOrientation () {
-    try {
-      screen.orientation.unlock()
-      await document.exitFullscreen()
-    } catch {}
-  }
+  const { unlockOrientation } = useScreenOrientation()
 
   async function handleScan (error?: any) {
     if (error) {
