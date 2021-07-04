@@ -21,7 +21,7 @@ export function BillActionsModal ({
   async function handleRemoveBill () {
     try {
       await toast.promise(
-        api.delete(`/delete-bill?id=${selectedBill.id}`),
+        api.delete(`/delete-bill?id=${selectedBill._id}`),
         {
           error: 'Não foi possível excluir esse boleto',
           loading: 'Excluindo boleto. . .',
@@ -37,7 +37,7 @@ export function BillActionsModal ({
   async function handleMarkBillAsPaid () {
     try {
       await toast.promise(
-        api.patch(`/pay-bill?id=${selectedBill.id}`),
+        api.patch(`/pay-bill?id=${selectedBill._id}`),
         {
           error: 'Não foi possível marcar esse boleto como pago',
           loading: 'Marcando boleto como pago . . .',

@@ -53,7 +53,7 @@ export default function HomePage () {
               ? data.results.map(bill =>
                   <BillListItem
                     bill={bill}
-                    key={bill.id}
+                    key={bill._id}
                     onClick={() => handleSelectBill(bill)}
                   />
                 )
