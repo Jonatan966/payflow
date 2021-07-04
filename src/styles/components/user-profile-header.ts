@@ -29,6 +29,7 @@ export const UserProfileHeaderContainer = styled.header`
 
     .profile-image {
       border-radius: 5px;
+      cursor: pointer;
     }
   }
 
