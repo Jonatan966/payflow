@@ -5,13 +5,19 @@ import toast from 'react-hot-toast'
 import { Bill } from '../interfaces/bill'
 import { api } from '../services/api'
 
-type BillWithoutId = Omit<Bill, 'id'>
+type BillWithoutId = Omit<Bill, '_id'>
 
+type ToastMessage = {
+  error: string,
+  loading: string,
+  success: string
+}
 interface BillManagerContextProps {
   scannedBill: BillWithoutId | null;
-  addBill: (billData: BillWithoutId) => Promise<void>;
+  isSavingBill: boolean;
+  addBill: (billData: BillWithoutId) => Promise<boolean>;
   removeBill: (billId: string) => Promise<boolean>;
-  getBillByBarcode: (barcode: string) => Promise<boolean>;
+  getBillByBarcode: (barcode: string, toastMessage: ToastMessage) => Promise<boolean>;
   clearScannedBill: () => void;
   markBillAsPaid: (billId: string) => Promise<boolean>;
 }
@@ -23,7 +29,8 @@ interface BillsManagerProviderProps {
 export const BillsManagerContext = createContext({} as BillManagerContextProps)
 
 export function BillsManagerProvider ({ children }: BillsManagerProviderProps) {
-  const [scannedBill, setScannedBill] = useState<Bill | null>(null)
+  const [scannedBill, setScannedBill] = useState<BillWithoutId | null>(null)
+  const [isSavingBill, setIsSavingBill] = useState(false)
 
   const clearScannedBill = () => setScannedBill(null)
 
@@ -36,6 +43,8 @@ export function BillsManagerProvider ({ children }: BillsManagerProviderProps) {
         dueDate
       })
 
+      setIsSavingBill(true)
+
       await toast.promise(addBill, {
         error: 'Não foi possível salvar este boleto',
         loading: 'Salvando boleto. . .',
@@ -43,7 +52,13 @@ export function BillsManagerProvider ({ children }: BillsManagerProviderProps) {
       })
 
       await Router.replace('/')
-    } catch {}
+
+      return true
+    } catch {
+      return false
+    } finally {
+      setIsSavingBill(false)
+    }
   }
 
   async function removeBill (billId: string) {
@@ -63,15 +78,11 @@ export function BillsManagerProvider ({ children }: BillsManagerProviderProps) {
     }
   }
 
-  async function getBillByBarcode (barcode: string) {
+  async function getBillByBarcode (barcode: string, toastMessage: ToastMessage) {
     try {
       const checkResult = await toast.promise(
         api.post('/check-barcode', { barcode }),
-        {
-          error: 'Boleto inválido, tente escanear novamente ou insira o código manualmente',
-          loading: 'Boleto escaneado! Analisando código de barras',
-          success: 'Código de barras analisado com sucesso!'
-        }
+        toastMessage
       )
 
       setScannedBill(checkResult.data)
@@ -103,6 +114,7 @@ export function BillsManagerProvider ({ children }: BillsManagerProviderProps) {
     <BillsManagerContext.Provider value={{
       scannedBill,
       clearScannedBill,
+      isSavingBill,
       addBill,
       removeBill,
       getBillByBarcode,

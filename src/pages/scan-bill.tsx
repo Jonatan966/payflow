@@ -38,7 +38,13 @@ export default function ScanBillPage () {
 
     setIsProcessing(true)
 
-    if (!await getBillByBarcode(barcode || '')) {
+    const billVerificationToastMessage = {
+      error: 'Boleto inválido, tente escanear novamente ou insira o código manualmente',
+      loading: 'Boleto escaneado! Analisando código de barras',
+      success: 'Código de barras analisado com sucesso!'
+    }
+
+    if (!await getBillByBarcode(barcode || '', billVerificationToastMessage)) {
       setTimeout(() => {
         Quagga.onDetected(onDetectBill)
         setIsProcessing(false)

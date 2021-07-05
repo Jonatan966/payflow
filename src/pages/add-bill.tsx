@@ -3,8 +3,7 @@ import { GetServerSideProps } from 'next'
 import { getSession } from 'next-auth/client'
 import Router from 'next/router'
 import { useForm } from 'react-hook-form'
-import toast from 'react-hot-toast'
-import { FaBarcode } from 'react-icons/fa'
+import { FaBarcode, FaSearch } from 'react-icons/fa'
 import { FiFileText, FiXCircle } from 'react-icons/fi'
 import { RiWalletLine } from 'react-icons/ri'
 
@@ -12,39 +11,67 @@ import { TextInput } from '../components/text-input'
 import { PageHead } from '../components/page-head'
 
 import { Bill } from '../interfaces/bill'
-import { api } from '../services/api'
 
 import { ActionButtonFooterContainer } from '../styles/components/action-buttons-footer'
 import { SpinnerContainer } from '../styles/components/spinner'
 import { AddBillPageContainer } from '../styles/pages/add-bill-page'
 import { useBillsManager } from '../hooks/use-bills-manager'
+import { numberToReal } from '../utils/numberToReal'
 
 export default function AddBillPage () {
-  const [isSavingBill, setIsSavingBill] = useState(false)
-  const { register, handleSubmit, setValue } = useForm()
-  const { scannedBill, clearScannedBill } = useBillsManager()
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    getValues,
+    clearErrors,
+    setError,
+    formState: {
+      errors
+    }
+  } = useForm()
+  const { scannedBill, clearScannedBill, addBill, isSavingBill, getBillByBarcode } = useBillsManager()
+  const [isScanningBarcode, setIsScanningBarcode] = useState(false)
 
   async function handleAddBill ({ name, amount, barcode, dueDate }: Bill) {
-    const addBill = api.post('/add-bill', {
-      name,
-      amount: Number(amount),
-      barcode,
-      dueDate
-    })
-
-    setIsSavingBill(true)
-
-    const insertResult = await toast.promise(addBill, {
-      error: 'Não foi possível salvar este boleto',
-      loading: 'Salvando boleto. . .',
-      success: 'Boleto salvo com sucesso!'
-    })
-
-    if (insertResult.status === 201) {
-      await Router.replace('/')
+    if (!scannedBill) {
+      return setError('barcode', {
+        message: 'Código inválido'
+      })
     }
 
-    setIsSavingBill(false)
+    const addBillSuccess = await addBill({
+      name,
+      amount: Number(amount.toString().replace(/R|\$| /g, '').replace(',', '.')),
+      barcode,
+      dueDate: new Date(`${dueDate.toString().split('/').reverse().join('-')} 00:00`)
+    })
+
+    if (!addBillSuccess) {
+      return
+    }
+
+    await Router.replace('/')
+  }
+
+  async function handleGetBillByBarcode () {
+    const barcodeField = getValues('barcode')
+
+    if (barcodeField.length < 40) {
+      return setError('barcode', {
+        message: 'O código deve ter pelo menos 40 caracteres'
+      })
+    }
+
+    setIsScanningBarcode(true)
+
+    await getBillByBarcode(barcodeField, {
+      error: 'Código inválido',
+      loading: 'Analisando código. . .',
+      success: 'Código analisado!'
+    })
+
+    setIsScanningBarcode(false)
   }
 
   useEffect(() => {
@@ -52,11 +79,9 @@ export default function AddBillPage () {
       return
     }
 
-    setValue('dueDate', scannedBill.dueDate)
-    setValue('amount', scannedBill.amount)
+    setValue('dueDate', new Date(scannedBill.dueDate).toLocaleDateString())
+    setValue('amount', numberToReal(scannedBill.amount))
     setValue('barcode', scannedBill.barcode)
-
-    clearScannedBill()
   }, [scannedBill])
 
   return (
@@ -76,24 +101,40 @@ export default function AddBillPage () {
         <TextInput
           icon={<FiXCircle size={25} />}
           placeholder='Vencimento'
-          type='date'
-          required
+          type='text'
           {...register('dueDate')}
+          readOnly
         />
         <TextInput
           icon={<RiWalletLine size={25} />}
           placeholder='Valor'
-          type='number'
-          step='any'
-          required
+          type='text'
+          readOnly
           {...register('amount')}
         />
         <TextInput
           icon={<FaBarcode size={25} />}
           placeholder='Código'
           required
+          error={errors.barcode}
           {...register('barcode')}
-        />
+          onChange={() => {
+            clearErrors('barcode')
+            clearScannedBill()
+            setValue('dueDate', null)
+            setValue('amount', null)
+          }}
+        >
+          <button
+            type='button'
+            className='hovered'
+            title='Buscar informações'
+            onClick={handleGetBillByBarcode}
+            disabled={isScanningBarcode}
+          >
+            {isScanningBarcode ? <SpinnerContainer size={25} /> : <FaSearch size={25} />}
+          </button>
+        </TextInput>
 
         <ActionButtonFooterContainer>
           {isSavingBill
