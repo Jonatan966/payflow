@@ -1,34 +1,73 @@
-# TypeScript & Styled Components Next.js example
+<p align="center">
+  <img src="public/images/logofull.png" />
+</p>
 
-This is a really simple project that show the usage of Next.js with TypeScript and Styled Components.
+<hr/>
 
-## Preview
+## O projeto
+O payflow se resume a uma plataforma para organizar boletos. Nela é possível armazenar e obter um histórico dos boletos pagos, em forma de extrato.
 
-Preview the example live on [StackBlitz](http://stackblitz.com/):
+## Funcionalidades
+- Armazenar boletos
+- Escanear boletos
+- Alternar entre tema claro/escuro
+- Fazer login com o Google
+- Trocar de conta
+- Instalar aplicativo (PWA)
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/vercel/next.js/tree/canary/examples/with-typescript-styled-components)
+## Tecnologias principais
 
-## Deploy your own
+<p align="center">
+  <a href="https://www.mongodb.com/pt-br">
+    <img width="100" alt="MongoDB" src=".github/images/mongo-logo.jpg" />
+  </a>
+  <a href="https://nextjs.org/">
+    <img width="100" alt="NextJS" src=".github/images/nextjs-logo.png" />
+  </a>
+  <a href="https://web.dev/progressive-web-apps/">
+    <img width="100" alt="PWA" src=".github/images/pwa-logo.png" />
+  </a>
+  <a href="https://pt-br.reactjs.org/">
+    <img width="100" alt="ReactJS" src=".github/images/reactjs-logo.png" />
+  </a>
+  <a href="https://styled-components.com/">
+    <img width="100" alt="Styled Components" src=".github/images/styled-components-logo.png" />
+  </a>
+</p>
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example):
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-typescript-styled-components&project-name=with-typescript-styled-components&repository-name=with-typescript-styled-components)
+## Como executar
+Clone o projeto e acesse a pasta do mesmo.
+```
+$ git clone https://github.com/Jonatan966/payflow
+$ cd payflow
+```
+Crie um arquivo `.env.local` e o preencha com essas variáveis
+```env
+NODE_ENV=dev
 
-## How to use it?
+# URL da aplicação
+NEXTAUTH_URL=http://localhost:3000
 
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init) or [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) to bootstrap the example:
+# Para conseguir essas credenciais, é necessário acessar o Console do Google e configurar um provedor de login OAuth2
+GOOGLE_PROVIDER_ID
+GOOGLE_PROVIDER_SECRET=
 
-```bash
-npx create-next-app --example with-typescript-styled-components with-typescript-styled-components-app
-# or
-yarn create next-app --example with-typescript-styled-components with-typescript-styled-components-app
+#URL de conexão com o MongoDB
+MONGODB_URI= 
+
+#Nome do banco de dados
+MONGODB_DB=payflow
 ```
 
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+Para iniciá-lo, siga os passos abaixo:
+```
+# Instalar as dependências
+$ yarn
 
-## Notes
+# Iniciar o projeto
+$ yarn start
+```
 
-This is an amalgamation of the 2 existing examples:
-
-- [with-typescript](https://github.com/vercel/next.js/tree/canary/examples/with-typescript)
-- [with-styled-components](https://github.com/vercel/next.js/tree/canary/examples/with-styled-components)
+## Licença
+Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](./LICENSE) para mais detalhes.
