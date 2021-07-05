@@ -9,10 +9,11 @@ import Router from 'next/router'
 import { PageHead } from '../components/page-head'
 
 import { ScanBillPageContainer } from '../styles/pages/scan-bill-page'
-import { api } from '../services/api'
 import { useScreenOrientation } from '../hooks/use-screen-orientation'
+import { useBillsManager } from '../hooks/use-bills-manager'
 
 export default function ScanBillPage () {
+  const { getBillByBarcode } = useBillsManager()
   const [isProcessing, setIsProcessing] = useState(false)
   const { unlockOrientation } = useScreenOrientation()
 
@@ -37,26 +38,17 @@ export default function ScanBillPage () {
 
     setIsProcessing(true)
 
-    try {
-      const checkResult = await toast.promise(
-        api.post('/check-barcode', { barcode }),
-        {
-          error: 'Boleto inválido, tente escanear novamente ou insira o código manualmente',
-          loading: 'Boleto escaneado! Analisando código de barras',
-          success: 'Código de barras analisado com sucesso!'
-        }
-      )
-
-      await Quagga.stop()
-      unlockOrientation()
-      sessionStorage.setItem('@payflow:scanned-bill', JSON.stringify(checkResult.data))
-      Router.push('/add-bill?before-scan=1')
-    } catch {
+    if (!await getBillByBarcode(barcode || '')) {
       setTimeout(() => {
         Quagga.onDetected(onDetectBill)
         setIsProcessing(false)
       }, 1000)
+      return
     }
+
+    await Quagga.stop()
+    unlockOrientation()
+    Router.push('/add-bill')
   }
 
   useEffect(() => {

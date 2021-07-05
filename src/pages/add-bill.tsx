@@ -7,7 +7,6 @@ import toast from 'react-hot-toast'
 import { FaBarcode } from 'react-icons/fa'
 import { FiFileText, FiXCircle } from 'react-icons/fi'
 import { RiWalletLine } from 'react-icons/ri'
-import { Boleto } from '@mrmgomes/boleto-utils'
 
 import { TextInput } from '../components/text-input'
 import { PageHead } from '../components/page-head'
@@ -18,10 +17,12 @@ import { api } from '../services/api'
 import { ActionButtonFooterContainer } from '../styles/components/action-buttons-footer'
 import { SpinnerContainer } from '../styles/components/spinner'
 import { AddBillPageContainer } from '../styles/pages/add-bill-page'
+import { useBillsManager } from '../hooks/use-bills-manager'
 
 export default function AddBillPage () {
   const [isSavingBill, setIsSavingBill] = useState(false)
   const { register, handleSubmit, setValue } = useForm()
+  const { scannedBill, clearScannedBill } = useBillsManager()
 
   async function handleAddBill ({ name, amount, barcode, dueDate }: Bill) {
     const addBill = api.post('/add-bill', {
@@ -47,25 +48,16 @@ export default function AddBillPage () {
   }
 
   useEffect(() => {
-    if (!Router.query['before-scan']) {
+    if (!scannedBill) {
       return
     }
 
-    const storagedBillData = sessionStorage.getItem('@payflow:scanned-bill')
+    setValue('dueDate', scannedBill.dueDate)
+    setValue('amount', scannedBill.amount)
+    setValue('barcode', scannedBill.barcode)
 
-    if (!storagedBillData) {
-      return
-    }
-
-    const parsedBillData = JSON.parse(storagedBillData) as Boleto
-
-    setValue('teste', 'bom dia')
-    setValue('dueDate', parsedBillData.vencimento.split('T')[0])
-    setValue('amount', parsedBillData.valor)
-    setValue('barcode', parsedBillData.linhaDigitavel)
-
-    sessionStorage.removeItem('@payflow:scanned-bill')
-  }, [])
+    clearScannedBill()
+  }, [scannedBill])
 
   return (
     <AddBillPageContainer>

@@ -19,5 +19,9 @@ export default async (request: NextApiRequest, response: NextApiResponse) => {
       })
   }
 
-  return response.status(200).json(billData)
+  return response.status(200).json({
+    amount: billData.valor,
+    barcode: billData.linhaDigitavel,
+    dueDate: billData.vencimento.split('T')[0]
+  })
 }
