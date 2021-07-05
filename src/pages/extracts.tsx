@@ -32,7 +32,7 @@ export default function ExtractsPage () {
               ? data.results.map(bill =>
                   <BillListItem
                     bill={bill}
-                    key={bill.id}
+                    key={bill._id}
                   />
                 )
               : <h3>Não há boletos</h3>
