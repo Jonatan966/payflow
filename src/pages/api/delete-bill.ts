@@ -1,7 +1,8 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { query as q } from 'faunadb'
 import { getSession } from 'next-auth/client'
-import { faunaClient } from '../../services/fauna'
+import { ObjectID } from 'mongodb'
+
+import { connectToMongoDatabase } from '../../services/mongodb'
 
 export default async (request: NextApiRequest, response: NextApiResponse) => {
   if (request.method !== 'DELETE') {
@@ -18,24 +19,17 @@ export default async (request: NextApiRequest, response: NextApiResponse) => {
     return response.status(401).end()
   }
 
-  const getUserRef = q.Select('ref',
-    q.Get(
-      q.Match(
-        q.Index('user_by_email'),
-        userEmail
-      )
-    )
-  )
+  const { db } = await connectToMongoDatabase()
+  const billsCollection = db.collection('bills')
 
-  const matchBillsByUser = q.Match(q.Index('bills_by_user'), getUserRef)
-  const matchTargetBill = q.Ref(
-    q.Collection('bills'),
-    q.Select('ref', matchBillsByUser, id)
-  )
+  const storagedUser = await db
+    .collection('users')
+    .findOne({ email: userEmail })
 
-  const asTargetBillExists = await faunaClient.query(
-    q.Exists(matchTargetBill)
-  )
+  const asTargetBillExists = await billsCollection.findOne({
+    _id: new ObjectID(String(id)),
+    owner: storagedUser._id
+  })
 
   if (!asTargetBillExists) {
     return response.status(400).send({
@@ -43,9 +37,9 @@ export default async (request: NextApiRequest, response: NextApiResponse) => {
     })
   }
 
-  await faunaClient.query(
-    q.Delete(matchTargetBill)
-  )
+  await billsCollection.deleteOne({
+    _id: asTargetBillExists._id
+  })
 
   return response.status(200).end()
 }

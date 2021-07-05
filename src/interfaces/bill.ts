@@ -4,5 +4,5 @@ export interface Bill {
   dueDate: Date;
   paidIn?: string;
   barcode: string;
-  id: string;
+  _id: string;
 }
