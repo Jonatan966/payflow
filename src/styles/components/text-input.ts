@@ -24,6 +24,7 @@ export const TextInputContainer = styled.label`
     input {
       flex: 1;
       padding: 0.75rem;
+      min-width: 0;
 
       border: none;
       background:  ${ctx => ctx.theme.colors.background};
