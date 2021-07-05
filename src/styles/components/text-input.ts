@@ -2,29 +2,57 @@ import styled from 'styled-components'
 
 export const TextInputContainer = styled.label`
   display: flex;
-  align-items: stretch;
+  flex-direction: column;
 
-  border-bottom: 1px solid ${ctx => ctx.theme.colors.stroke};
+  .input-content {
+    display: flex;
+    align-items: stretch;
 
-  input {
-    flex: 1;
-    padding: 0.75rem;
+    &:not(.read-only) {
+      border-bottom: 1px solid ${ctx => ctx.theme.colors.stroke};
 
-    border: none;
-    border-left: 1px solid ${ctx => ctx.theme.colors.stroke};
-    background:  ${ctx => ctx.theme.colors.background};
+      input {
+        border-left: 1px solid ${ctx => ctx.theme.colors.stroke};
+      }
+    }
 
-    color: ${ctx => ctx.theme.colors.body};
+    &.error, &.error input {
+      border-color: ${ctx => ctx.theme.colors.delete};
+      color: ${ctx => ctx.theme.colors.delete};
+    }
 
-    &::placeholder {
-      color: ${ctx => ctx.theme.colors.placeholder};
+    input {
+      flex: 1;
+      padding: 0.75rem;
+
+      border: none;
+      background:  ${ctx => ctx.theme.colors.background};
+
+      color: ${ctx => ctx.theme.colors.body};
+
+      &::placeholder {
+        color: ${ctx => ctx.theme.colors.placeholder};
+      }
+    }
+
+    > svg {
+      color: ${ctx => ctx.theme.colors.background};
+    }
+
+    svg {
+      margin: 0.75rem;
+      fill: ${ctx => ctx.theme.colors.primary};
+    }
+
+    button {
+      background: none;
+      border: none;
+      font-size: 0;
     }
   }
 
-  svg {
-    margin: 0.75rem;
-    fill: ${ctx => ctx.theme.colors.primary};
-    color: ${ctx => ctx.theme.colors.background};
+  span {
+    padding: 0.25rem 0;
+    color: ${ctx => ctx.theme.colors.delete};
   }
-
 `

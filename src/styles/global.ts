@@ -37,6 +37,10 @@ export const GlobalStyles = createGlobalStyle`
     font: 400 1rem 'Inter', sans-serif;
   }
 
+  button {
+    cursor: pointer;
+  }
+
   .hovered {
     transition: filter 0.2s;
 

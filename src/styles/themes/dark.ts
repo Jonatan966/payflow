@@ -8,8 +8,8 @@ export const darkTheme: Omit<DefaultTheme, 'toggleTheme'> = {
     delete: '#E83F5B',
 
     heading: '#d1d1d6',
-    body: '#737380',
-    placeholder: '#B1B0B8',
+    body: '#B1B0B8',
+    placeholder: '#737380',
 
     stroke: '#727280',
     shape: '#FAFAFC',
