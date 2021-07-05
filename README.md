@@ -4,10 +4,10 @@
 
 <hr/>
 
-## O projeto
+## 💻 O projeto
 O payflow se resume a uma plataforma para organizar boletos. Nela é possível armazenar e obter um histórico dos boletos pagos, em forma de extrato.
 
-## Funcionalidades
+## 🔧 Funcionalidades
 - Armazenar boletos
 - Escanear boletos
 - Alternar entre tema claro/escuro
@@ -15,7 +15,7 @@ O payflow se resume a uma plataforma para organizar boletos. Nela é possível a
 - Trocar de conta
 - Instalar aplicativo (PWA)
 
-## Tecnologias principais
+## 🧪 Tecnologias principais
 
 <p align="center">
   <a href="https://www.mongodb.com/pt-br">
@@ -36,7 +36,7 @@ O payflow se resume a uma plataforma para organizar boletos. Nela é possível a
 </p>
 
 
-## Como executar
+## 🚀 Como executar
 Clone o projeto e acesse a pasta do mesmo.
 ```
 $ git clone https://github.com/Jonatan966/payflow
@@ -69,5 +69,5 @@ $ yarn
 $ yarn start
 ```
 
-## Licença
+## 📝 Licença
 Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](./LICENSE) para mais detalhes.
