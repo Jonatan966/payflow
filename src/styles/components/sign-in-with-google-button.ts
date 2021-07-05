@@ -3,7 +3,7 @@ import styled from 'styled-components'
 export const SignInWithGoogleButtonContainer = styled.button`
   position: relative;
 
-  background: ${ctx => ctx.theme.colors.shape};
+  background: ${ctx => ctx.theme.colors.gray};
   border: 1px solid ${ctx => ctx.theme.colors.stroke};
   border-radius: 5px;
 
