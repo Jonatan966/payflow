@@ -2,7 +2,6 @@ import NextAuth from 'next-auth'
 import Providers from 'next-auth/providers'
 import Adapters from 'next-auth/adapters'
 
-console.log(process.env.MONGODB_URI)
 export default NextAuth({
   providers: [
     Providers.Google({
