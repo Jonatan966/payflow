@@ -35,6 +35,19 @@ O payflow se resume a uma plataforma para organizar boletos. Nela é possível a
   </a>
 </p>
 
+## 📸 Capturas de tela
+<p align="center">
+  <img width="250" alt="MongoDB" src=".github/screenshots/login-screen.png" />
+  <img width="250" alt="MongoDB" src=".github/screenshots/home-screen-light.png" />
+  <img width="250" alt="MongoDB" src=".github/screenshots/bill-insertion-screen.png" />
+
+  <img width="250" alt="MongoDB" src=".github/screenshots/home-screen-dark.png" />
+  <img width="250" alt="MongoDB" src=".github/screenshots/bill-actions-dialog.png" />
+  <img width="250" alt="MongoDB" src=".github/screenshots/app-config-dialog.png" />
+</p>
+
+## 🎨 Design
+O design do projeto pode ser encontrado [aqui](https://www.figma.com/community/file/991337911070600335/PayFlow)
 
 ## 🚀 Como executar
 Clone o projeto e acesse a pasta do mesmo.
