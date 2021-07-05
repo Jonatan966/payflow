@@ -7,7 +7,7 @@ export function SignInWithGoogleButton () {
   const { handleSignIn } = useAuth()
 
   return (
-    <SignInWithGoogleButtonContainer onClick={handleSignIn}>
+    <SignInWithGoogleButtonContainer onClick={handleSignIn} className='hovered' >
       <Image src='/images/google.png' width={24} height={24} />
       <strong></strong>
       <span>Entrar com Google</span>

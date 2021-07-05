@@ -1,15 +1,16 @@
 import styled from 'styled-components'
+import { lighten } from 'polished'
 
 export const SignInWithGoogleButtonContainer = styled.button`
   position: relative;
 
   background: ${ctx => ctx.theme.colors.gray};
-  border: 1px solid ${ctx => ctx.theme.colors.stroke};
+  border: 2px solid ${ctx => lighten(0.2, ctx.theme.colors.gray)};
   border-radius: 5px;
 
-  color: ${ctx => ctx.theme.colors.heading};
+  color: ${ctx => ctx.theme.colors.shape};
   cursor: pointer;
-  transition: filter 0.2s;
+  box-shadow: var(--regular-box-shadow);
 
   display: flex;
   align-items: stretch;
@@ -26,12 +27,8 @@ export const SignInWithGoogleButtonContainer = styled.button`
   }
 
   strong {
-    width: 1px;
+    width: 2px;
 
-    background: ${ctx => ctx.theme.colors.stroke};
-  }
-
-  &:hover {
-    filter: brightness(0.9);
+    background: ${ctx => lighten(0.2, ctx.theme.colors.gray)};
   }
 `
