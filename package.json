@@ -10,9 +10,7 @@
   "dependencies": {
     "@ericblade/quagga2": "^1.4.0",
     "@mrmgomes/boleto-utils": "^1.2.0",
-    "@next-auth/fauna-adapter": "^0.2.1",
     "axios": "^0.21.1",
-    "faunadb": "^4.3.0",
     "mongodb": "^3.6.9",
     "next": "latest",
     "next-auth": "^3.27.1",
